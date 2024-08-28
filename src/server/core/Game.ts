@@ -8,7 +8,7 @@ export class Game {
   public start() {
     setInterval(() => {
       this.notifyGameState();
-    }, 1000 / 30);
+    }, 1000 / 5);
   }
 
   public addGameStateListener(listener: GameStateListener) {

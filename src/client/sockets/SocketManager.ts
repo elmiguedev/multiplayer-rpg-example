@@ -3,6 +3,7 @@ import type { GameSceneEntities } from "../scenes/GameSceneEntities";
 import type { GameState } from "./states/GameState";
 import { Player } from "../entities/Player";
 import type { Scene } from "phaser";
+import { BLOCK_SIZE } from "../constants";
 export class SocketManager {
   private socket: Socket;
   constructor(private readonly scene: Scene, private readonly entities: GameSceneEntities) {
@@ -20,15 +21,15 @@ export class SocketManager {
         const playerState = state.players[playerId];
         if (playerState.id === this.socket.id) {
           if (this.entities.mainPlayer) {
-            this.entities.mainPlayer.setPosition(playerState.x, playerState.y);
+            this.entities.mainPlayer.setPosition(playerState.x * BLOCK_SIZE, playerState.y * BLOCK_SIZE);
           } else {
-            this.entities.mainPlayer = new Player(this.scene, playerState.x, playerState.y);
+            this.entities.mainPlayer = new Player(this.scene, playerState.x * BLOCK_SIZE, playerState.y * BLOCK_SIZE);
           }
         } else {
           if (this.entities.players[playerState.id]) {
-            this.entities.players[playerState.id].setPosition(playerState.x, playerState.y);
+            this.entities.players[playerState.id].setPosition(playerState.x * BLOCK_SIZE, playerState.y * BLOCK_SIZE);
           } else {
-            this.entities.players[playerState.id] = new Player(this.scene, playerState.x, playerState.y);
+            this.entities.players[playerState.id] = new Player(this.scene, playerState.x * BLOCK_SIZE, playerState.y * BLOCK_SIZE);
           }
         }
       })

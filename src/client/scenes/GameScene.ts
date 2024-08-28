@@ -30,16 +30,32 @@ export class GameScene extends Phaser.Scene {
   update() {
     if (this.entities.mainPlayer) {
       if (this.controls.left.isDown) {
-        this.socketManager.emit("move", "left");
+        if (this.entities.mainPlayer.canWalk === true) {
+          this.entities.mainPlayer.walk(-1, 0, () => {
+            this.socketManager.emit("move", "left");
+          });
+        }
       }
       if (this.controls.right.isDown) {
-        this.socketManager.emit("move", "right");
+        if (this.entities.mainPlayer.canWalk === true) {
+          this.entities.mainPlayer.walk(1, 0, () => {
+            this.socketManager.emit("move", "right");
+          });
+        }
       }
       if (this.controls.up.isDown) {
-        this.socketManager.emit("move", "up");
+        if (this.entities.mainPlayer.canWalk === true) {
+          this.entities.mainPlayer.walk(0, -1, () => {
+            this.socketManager.emit("move", "up");
+          });
+        }
       }
       if (this.controls.down.isDown) {
-        this.socketManager.emit("move", "down");
+        if (this.entities.mainPlayer.canWalk === true) {
+          this.entities.mainPlayer.walk(0, 1, () => {
+            this.socketManager.emit("move", "down");
+          });
+        }
       }
     }
 
